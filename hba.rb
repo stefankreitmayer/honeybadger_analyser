@@ -47,11 +47,10 @@ def show_all(json_file_path)
   lines = File.read(json_file_path).split("\n")
   errs = lines.map{|line| JSON.parse line}
   system('clear')
-  %w(message request/cgi_data/HTTP_USER_AGENT request/url request/context component action request/cgi_data/HTTP_REFERRER).each do |path_string|
+  %w(message request/cgi_data/HTTP_USER_AGENT request/url request/context component action request/cgi_data/HTTP_REFERRER request/params).each do |path_string|
     show_table(errs, path_string)
   end
-  @errs = errs
-  :done
+  puts "\JSON structure:\n#{JSON.pretty_generate(JSON.parse lines.first)}"
 end
 
 if ARGV.length==1
